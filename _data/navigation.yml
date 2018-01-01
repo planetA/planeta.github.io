@@ -1,0 +1,18 @@
+# main links
+side:
+  - title: "Posts"
+    children:
+      - title: "recent"
+        url: /
+      - title: "by Year"
+        url: /year-archive/
+      - title: "by Category"
+        url: /categories/
+      - title: "by Tag"
+        url: /tags/
+
+main:
+  - title: "Posts"
+    url: /
+  - title: "About"
+    url: /about
