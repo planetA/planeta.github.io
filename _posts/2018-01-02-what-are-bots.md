@@ -179,3 +179,7 @@ system should have much less personnel interaction for issuing new
 user identities and still allow more freedom for anonymity. If a
 social network consists only of users who pass this form of
 verification the problem of social bots simply falls off.
+
+**Update** As a friend of mine correctly pointed out was formally
+described as [Sybil attacks](www.divms.uiowa.edu/~ghosh/sybil.pdf).
+
