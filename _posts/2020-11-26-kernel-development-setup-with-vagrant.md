@@ -263,6 +263,7 @@ rdma_core_src: ~/src/rdma-core
 Vagrant directly calls playbook file "install.yaml":
 
 ```yaml
+{%raw%}
 ---
 - hosts: master
   connection: local
@@ -328,7 +329,7 @@ Vagrant directly calls playbook file "install.yaml":
       until: srv_result.finished
       retries: 10
       delay: 5
-
+{%endraw%}
 ```
 
 Describing syntax of Ansible is out of scope of this article, instead I only
@@ -387,6 +388,7 @@ ff02::2 ip6-allrouters
 Next, the role install ssh keys:
 
 ```yaml
+{%raw%}
 - name: Copy private ssh and config
   copy:
     src: ssh/
@@ -399,6 +401,7 @@ Next, the role install ssh keys:
     state: present
   with_file:
     - ssh/id_rsa.pub
+{%endraw%}
 ```
 
 Doing this on a production system would be terribly insecure, but these are VMs
@@ -464,6 +467,7 @@ Now, it is the time to install RDMA userspace. This role starts by installing
 the required packages.
 
 ```yaml
+{%raw%}
 - name: Install all required dev packages
   become: true
   apt:
@@ -492,6 +496,7 @@ the required packages.
   args:
     chdir: "{{home_dir}}/{{iproute2_version}}"
     creates: "{{home_dir}}/{{iproute2_version}}/installed"
+{%endraw%}
 ```
 
 I can install most of the packages from the repository, but I need a newer
@@ -502,6 +507,7 @@ copying the repo into the VM, I want to ignore build and git directories. Before
 compiling, I invoke CMake, then install the libraries system-wide.
 
 ```yaml
+{%raw%}
 - name: Sync rdma-core repo
   ansible.posix.synchronize:
     src: "{{rdma_core_src}}/"
@@ -538,6 +544,7 @@ compiling, I invoke CMake, then install the libraries system-wide.
       - install
   args:
     chdir: "{{ rdma_core_src_vm }}/build"
+{%endraw%}
 ```
 
 After that I load SoftRoCE and SoftiWarp drivers, although, I did not find a way
@@ -545,6 +552,7 @@ how to make SoftiWarp drivers work. Here, I call rdma tool form iproute2 package
 I installed before.
 
 ```yaml
+{%raw%}
 - name: Load drivers
   become: true
   community.general.modprobe:
@@ -556,11 +564,13 @@ I installed before.
 - name: Add SoftiWarp device
   become: true
   shell: /usr/sbin/rdma link show siw0/1 || /usr/sbin/rdma link add siw0 type siw netdev eth1
+{%endraw%}
 ```
 
 Finally, I install RDMA performance tools. This time, I use autotools for configuration.
 
 ```yaml
+{%raw%}
 - name: Get perftest tools
   unarchive:
     src: "{{ perftest_url | quote }}"
@@ -582,6 +592,7 @@ Finally, I install RDMA performance tools. This time, I use autotools for config
   args:
     chdir: "{{home_dir}}/{{perftest_dir}}"
     creates: "/usr/bin/ib_send_bw"
+{%endraw%}
 ```
 
 I keep all the sources in home directory, instead of /tmp, to keep these
