@@ -81,7 +81,7 @@ author:
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "PhD student"
   location         : "Dresden, Germany"
-  email            : "mplaneta@os.inf.tu-dresden.de"
+  email            : "mplaneta+fyi@os.inf.tu-dresden.de"
   uri              :
   home             : # null (default), "absolute or relative url to link to author home"
   bitbucket        :
