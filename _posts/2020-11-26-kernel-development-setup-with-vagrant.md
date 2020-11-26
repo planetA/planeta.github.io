@@ -560,7 +560,7 @@ I installed before.
 
 Finally, I install RDMA performance tools. This time, I use autotools for configuration.
 
-```
+```yaml
 - name: Get perftest tools
   unarchive:
     src: "{{ perftest_url | quote }}"
