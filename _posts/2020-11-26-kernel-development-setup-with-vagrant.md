@@ -52,7 +52,7 @@ vagrant ssh <machine-name>
 ```
 
 The repo with the configuration is available on
-[https://github.com/planetA/kernel-vargrant](github).
+[github](https://github.com/planetA/kernel-vargrant).
 
 # Prerequisites
 
