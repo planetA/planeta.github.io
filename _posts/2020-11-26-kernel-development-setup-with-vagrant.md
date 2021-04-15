@@ -194,8 +194,8 @@ make oldconfig
 make menuconfig
 make -j$(nproc)
 
-export INSTALL_PATH=$(readlink -f ~/<provisioning>/roles/rdma_install/files/kernel/boot)
-export INSTALL_MOD_PATH=$(readlink -f ~/<provisioning>/roles/rdma_install/files/kernel)
+export INSTALL_PATH="$HOME/<path-to-provisioning>/provisioning/roles/rdma_install/files/kernel/boot"
+export INSTALL_MOD_PATH="$HOME/<path-to-provisioning>/provisioning/roles/rdma_install/files/kernel"
 
 mkdir -p $INSTALL_PATH
 make install
